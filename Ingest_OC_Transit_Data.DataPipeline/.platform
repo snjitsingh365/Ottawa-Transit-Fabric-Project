@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "Ingest_OC_Transit_Data"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "0f9dcbef-4b78-915b-4da1-a61fbb247088"
+  }
+}
