@@ -1,0 +1,91 @@
+table t_transit_stops_silver
+	lineageTag: b44c99d2-d92d-4305-b16f-c2ae3ebd9fb3
+	sourceLineageTag: [dbo].[t_transit_stops_silver]
+
+	column X
+		dataType: string
+		lineageTag: 5af130a9-c9af-4e83-96dc-182afe287c65
+		sourceLineageTag: X
+		summarizeBy: none
+		sourceColumn: X
+
+		annotation SummarizationSetBy = Automatic
+
+	column Y
+		dataType: string
+		lineageTag: afe986b5-899d-46c3-a28b-1ae5e887f844
+		sourceLineageTag: Y
+		summarizeBy: none
+		sourceColumn: Y
+
+		annotation SummarizationSetBy = Automatic
+
+	column Stop_ID
+		dataType: string
+		lineageTag: 843e9877-1fcf-47f4-b92b-179ee6dae315
+		sourceLineageTag: Stop_ID
+		summarizeBy: none
+		sourceColumn: Stop_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Location
+		dataType: string
+		lineageTag: 599e1461-f8cb-4cf8-b354-13d587d7b772
+		sourceLineageTag: Location
+		summarizeBy: none
+		sourceColumn: Location
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: string
+		lineageTag: b3e34e7e-5541-480b-81f9-27461cc7c3ab
+		sourceLineageTag: Latitude
+		summarizeBy: none
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column Longitude
+		dataType: string
+		lineageTag: 910b473e-7621-4afa-8589-e65b8c5bd102
+		sourceLineageTag: Longitude
+		summarizeBy: none
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shelter
+		dataType: string
+		lineageTag: 416a3eb2-6224-4ce5-9693-dffc9dffaf5b
+		sourceLineageTag: Shelter
+		summarizeBy: none
+		sourceColumn: Shelter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bench
+		dataType: string
+		lineageTag: ffe6369d-892f-4ee5-aea6-8f206744c3f0
+		sourceLineageTag: Bench
+		summarizeBy: none
+		sourceColumn: Bench
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bus_ID
+		dataType: string
+		lineageTag: f1b78a11-557e-4bee-b02d-ca3676b624f5
+		sourceLineageTag: Bus_ID
+		summarizeBy: none
+		sourceColumn: Bus_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition t_transit_stops_silver = entity
+		mode: directLake
+		source
+			entityName: t_transit_stops_silver
+			expressionSource: 'DirectLake - Bronze_Lakehouse'
+
