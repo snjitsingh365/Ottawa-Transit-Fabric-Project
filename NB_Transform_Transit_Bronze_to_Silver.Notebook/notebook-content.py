@@ -38,7 +38,7 @@ from pyspark.sql.types import DoubleType
 
 df = spark.read.format("csv").option("header","true").load("Files/OC_Transpo_Stops.csv")
 # df now is a Spark DataFrame containing CSV data from "Files/OC_Transpo_Stops.csv".
-display(df)
+display(df.limit(5))
 
 # METADATA ********************
 

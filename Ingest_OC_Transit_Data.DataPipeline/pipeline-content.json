@@ -5,47 +5,48 @@
         "type": "Copy",
         "typeProperties": {
           "source": {
-            "type": "JsonSource",
-            "formatSettings": {
-              "type": "JsonReadSettings"
+            "type": "RestSource",
+            "requestMethod": "GET",
+            "paginationRules": {
+              "QueryParameters.resultOffset": "RANGE:0:6000:1000"
             },
-            "storeSettings": {
-              "type": "HttpReadSettings",
-              "requestMethod": "GET"
-            },
+            "httpRequestTimeout": "00:01:40",
+            "requestInterval": "00.00:00:00.010",
             "datasetSettings": {
-              "type": "Json",
+              "type": "RestResource",
               "typeProperties": {
-                "location": {
-                  "type": "HttpServerLocation"
-                }
+                "relativeUrl": "query?where=1=1&outFields=*&outSR=4326&f=json&resultRecordCount=1000"
               },
-              "schema": {},
+              "schema": [],
               "externalReferences": {
-                "connection": "440ce4d1-04e3-437c-aa14-fbf14c1e075b"
+                "connection": "328ed75a-55cb-4964-80bf-e983f5c88f9d"
               },
               "annotations": []
             }
           },
           "sink": {
-            "type": "JsonSink",
+            "type": "DelimitedTextSink",
             "formatSettings": {
-              "type": "JsonWriteSettings"
+              "type": "DelimitedTextWriteSettings",
+              "fileExtension": ".txt"
             },
             "storeSettings": {
               "type": "LakehouseWriteSettings"
             },
             "datasetSettings": {
-              "type": "Json",
+              "type": "DelimitedText",
               "typeProperties": {
                 "location": {
                   "type": "LakehouseLocation",
-                  "folderPath": "raw",
-                  "fileName": "transit_data"
-                }
+                  "fileName": "OC_Transpo_Stops.csv"
+                },
+                "columnDelimiter": ",",
+                "quoteChar": "\"",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true
               },
-              "schema": {},
-              "linkedService": {
+              "schema": [],
+              "connectionSettings": {
                 "name": "Bronze_Lakehouse",
                 "properties": {
                   "type": "Lakehouse",
@@ -54,10 +55,127 @@
                     "workspaceId": "00000000-0000-0000-0000-000000000000",
                     "rootFolder": "Files"
                   },
+                  "externalReferences": {
+                    "connection": "babeef5b-9fa5-4512-bc26-57cd5f2bd6ec"
+                  },
                   "annotations": []
                 }
               },
               "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "features.attributes.FID",
+                  "type": "Int64"
+                },
+                "sink": {
+                  "name": "FID",
+                  "type": "Int64",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.attributes.F560",
+                  "type": "Int64"
+                },
+                "sink": {
+                  "name": "F560",
+                  "type": "Int64",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.attributes.Location",
+                  "type": "String"
+                },
+                "sink": {
+                  "name": "Location",
+                  "type": "String",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.attributes.Latitude",
+                  "type": "Double"
+                },
+                "sink": {
+                  "name": "Latitude",
+                  "type": "Double",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.attributes.Longitude",
+                  "type": "Double"
+                },
+                "sink": {
+                  "name": "Longitude",
+                  "type": "Double",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.attributes.Shelter",
+                  "type": "String"
+                },
+                "sink": {
+                  "name": "Shelter",
+                  "type": "String",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.attributes.Bench",
+                  "type": "String"
+                },
+                "sink": {
+                  "name": "Bench",
+                  "type": "String",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.geometry.x",
+                  "type": "Double"
+                },
+                "sink": {
+                  "name": "x",
+                  "type": "Double",
+                  "physicalType": "String"
+                }
+              },
+              {
+                "source": {
+                  "name": "features.geometry.y",
+                  "type": "Double"
+                },
+                "sink": {
+                  "name": "y",
+                  "type": "Double",
+                  "physicalType": "String"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            },
+            "columnFlattenSettings": {
+              "treatArrayAsString": false,
+              "treatStructAsString": false,
+              "flattenColumnDelimiter": "."
             }
           },
           "enableStaging": false
