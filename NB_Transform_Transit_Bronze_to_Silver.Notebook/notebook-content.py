@@ -24,7 +24,7 @@
 
 # Welcome to your new notebook
 # Type here in the cell editor to add code!
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, when
 from pyspark.sql.types import DoubleType
 
 # METADATA ********************
@@ -64,8 +64,8 @@ df_clean = df.withColumnRenamed("FID","Stop_ID") \
              .withColumnRenamed("F560","Bus_ID") \
              .withColumn("Latitude", col("Latitude").cast(DoubleType())) \
              .withColumn("Longitude", col("Longitude").cast(DoubleType())) \
-             .fillna("N", subset=["Bench"]) \
-             .fillna("N", subset=["Shelter"])
+             .withColumn("Bench", when(col("Bench") == "Y", "Y").otherwise("N")) \
+             .withColumn("Shelter", when(col("Shelter") == "Y", "Y").otherwise("N"))
 
 # METADATA ********************
 
